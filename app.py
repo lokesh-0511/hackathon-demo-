@@ -7,7 +7,7 @@ import uuid
 import csv
 import io
 import sqlite3
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify, Response, send_from_directory
 from database import init_db, get_db_connection
 
 app = Flask(__name__)
@@ -36,6 +36,23 @@ init_db()
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/srk')
+@app.route('/friend')
+def friend_portal():
+    return send_from_directory('friend_frontend', 'index.html')
+
+@app.route('/style.css')
+def friend_css():
+    return send_from_directory('friend_frontend', 'style.css')
+
+@app.route('/script.js')
+def friend_js():
+    return send_from_directory('friend_frontend', 'script.js')
+
+@app.route('/friend_frontend/<path:filename>')
+def friend_static_assets(filename):
+    return send_from_directory('friend_frontend', filename)
 
 @app.route('/api/events', methods=['GET'])
 def get_events():
@@ -109,12 +126,22 @@ def register_student():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Check if event exists and slots are available
-    event = cursor.execute('SELECT * FROM events WHERE id = ?', (event_id,)).fetchone()
+    # Check if event exists (supports ID or Category string like 'Dance', 'Singing', 'Photography')
+    event = None
+    if isinstance(event_id, int) or (isinstance(event_id, str) and str(event_id).isdigit()):
+        event = cursor.execute('SELECT * FROM events WHERE id = ?', (int(event_id),)).fetchone()
+    elif isinstance(event_id, str) and event_id.strip():
+        search_term = event_id.strip()
+        event = cursor.execute(
+            'SELECT * FROM events WHERE LOWER(category) = LOWER(?) OR LOWER(title) LIKE LOWER(?) LIMIT 1',
+            (search_term, f"%{search_term}%")
+        ).fetchone()
+
     if not event:
         conn.close()
-        return jsonify({"success": False, "message": f"Selected event (ID: {event_id}) not found."}), 404
+        return jsonify({"success": False, "message": f"Selected event '{event_id}' not found."}), 404
 
+    event_id = event['id']
     reg_count = cursor.execute('SELECT COUNT(*) FROM registrations WHERE event_id = ?', (event_id,)).fetchone()[0]
     if reg_count >= event['max_slots']:
         conn.close()

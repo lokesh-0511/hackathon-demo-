@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f8ff;
+    color: #172b4d;
+}
+
+header {
+    background-color: #ffffff;
+    color: #0756b5;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #1769d2;
+}
+
+nav {
+    background-color: #0756b5;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 15px;
+    font-weight: bold;
+}
+
+section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #0756b5;
+    margin-bottom: 15px;
+}
+
+.event-card {
+    background-color: white;
+    padding: 25px;
+    margin: 15px auto;
+    max-width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 60, 130, 0.12);
+    border: 1px solid #d8e7fa;
+}
+
+button {
+    background-color: #0756b5;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #003d82;
+}
+
+input, select {
+    width: 90%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 10px;
+    border: 1px solid #9bbce5;
+    border-radius: 6px;
+    background-color: white;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #1769d2;
+}
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    background: #f0f6ff;
+    color: #172b4d;
+}
+
+header {
+    width: 100%;
+    background: #ffffff;
+    padding: 30px 15px;
+}
+
+nav {
+    width: 100%;
+    background: #0756b5;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+nav a {
+    margin: 5px;
+    font-size: 14px;
+}
+
+section {
+    width: 100%;
+    padding: 45px 15px;
+}
+
+.event-card {
+    width: 90%;
+    max-width: 350px;
+}
+
+input, select {
+    width: 90%;
+    max-width: 400px;
+    display: block;
+    margin: 12px auto;
+}
+
+button {
+    margin: 15px;
+}
+
+/* Small mobile screens */
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 26px;
+    }
+
+    section {
+        padding: 30px 12px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+}
