@@ -1,0 +1,66 @@
+/* Custom styles and enhancements for CultPulse */
+
+@layer utilities {
+    .scrollbar-none::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-none {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+/* Card Glow Effect */
+.event-card {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(217, 70, 239, 0.12), 0 8px 10px -6px rgba(217, 70, 239, 0.08);
+}
+
+/* Print Styles for Digital Pass */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #pass-modal, #printable-pass, #printable-pass * {
+        visibility: visible;
+    }
+    #pass-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        display: block !important;
+    }
+    #printable-pass {
+        border: 2px solid #333 !important;
+        box-shadow: none !important;
+        color: #000 !important;
+        background: #fff !important;
+        margin: 20px auto !important;
+        max-width: 480px !important;
+    }
+    #printable-pass * {
+        color: #111 !important;
+    }
+    #printable-pass .border-slate-700,
+    #printable-pass .border-slate-800 {
+        border-color: #ddd !important;
+    }
+    #printable-pass .bg-slate-900,
+    #printable-pass .bg-slate-950 {
+        background-color: #f8f9fa !important;
+    }
+    /* Hide the modal buttons during printing */
+    .modal-action-btn,
+    button {
+        display: none !important;
+    }
+}
+
